@@ -2,7 +2,7 @@
 local gameName = "Sans Game [DISCONTINUED]"
 local creatorName = "1mDito"
 
-if game.PlaceId == 123456789 and game.CreatorId == 123456 then -- Replace with the actual PlaceId and CreatorId
+if game.PlaceId == 6023502748 and game.CreatorId == 1492491878 then -- Replace with the actual PlaceId and CreatorId
     -- Create ScreenGui
     local screenGui = Instance.new("ScreenGui")
     screenGui.Parent = game.CoreGui
