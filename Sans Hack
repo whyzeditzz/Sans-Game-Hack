@@ -1,0 +1,175 @@
+-- Check if the game is "Sans Game [DISCONTINUED]" by 1mDito
+local gameName = "Sans Game [DISCONTINUED]"
+local creatorName = "1mDito"
+
+if game.PlaceId == 123456789 and game.CreatorId == 123456 then -- Replace with the actual PlaceId and CreatorId
+    -- Create ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = game.CoreGui
+
+    -- Create Main Frame
+    local mainFrame = Instance.new("Frame")
+    mainFrame.Size = UDim2.new(0, 250, 0, 150)
+    mainFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
+    mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    mainFrame.BorderSizePixel = 0
+    mainFrame.Parent = screenGui
+
+    -- Add UICorner to Main Frame for rounded corners
+    local frameCorner = Instance.new("UICorner")
+    frameCorner.CornerRadius = UDim.new(0, 12)
+    frameCorner.Parent = mainFrame
+
+    -- Create Title Label
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, 0, 0, 50)
+    titleLabel.Position = UDim2.new(0, 0, 0, 0)
+    titleLabel.Text = "Sans Game"
+    titleLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.Font = Enum.Font.GothamBold
+    titleLabel.TextSize = 24
+    titleLabel.BorderSizePixel = 0
+    titleLabel.Parent = mainFrame
+
+    -- Add UICorner to Title Label for rounded corners
+    local titleCorner = Instance.new("UICorner")
+    titleCorner.CornerRadius = UDim.new(0, 8)
+    titleCorner.Parent = titleLabel
+
+    -- Create Activate Admin Button
+    local activateButton = Instance.new("TextButton")
+    activateButton.Size = UDim2.new(0.8, 0, 0.3, 0)
+    activateButton.Position = UDim2.new(0.1, 0, 0.6, 0)
+    activateButton.Text = "Activate Admin"
+    activateButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    activateButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    activateButton.Font = Enum.Font.GothamBold
+    activateButton.TextSize = 24
+    activateButton.BorderSizePixel = 0
+    activateButton.Parent = mainFrame
+
+    -- Add UICorner to Activate Button for rounded corners
+    local buttonCorner = Instance.new("UICorner")
+    buttonCorner.CornerRadius = UDim.new(0, 8)
+    buttonCorner.Parent = activateButton
+
+    -- Create Admin Panel Frame
+    local adminFrame = Instance.new("Frame")
+    adminFrame.Size = UDim2.new(0, 250, 0, 300)
+    adminFrame.Position = UDim2.new(0.5, -125, 0.5, -150)
+    adminFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    adminFrame.BorderSizePixel = 0
+    adminFrame.Visible = false
+    adminFrame.Parent = screenGui
+
+    -- Add UICorner to Admin Frame for rounded corners
+    local adminFrameCorner = Instance.new("UICorner")
+    adminFrameCorner.CornerRadius = UDim.new(0, 12)
+    adminFrameCorner.Parent = adminFrame
+
+    -- Create Admin Panel Title Label
+    local adminTitleLabel = Instance.new("TextLabel")
+    adminTitleLabel.Size = UDim2.new(1, 0, 0, 50)
+    adminTitleLabel.Position = UDim2.new(0, 0, 0, 0)
+    adminTitleLabel.Text = "Admin Panel"
+    adminTitleLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    adminTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    adminTitleLabel.Font = Enum.Font.GothamBold
+    adminTitleLabel.TextSize = 24
+    adminTitleLabel.BorderSizePixel = 0
+    adminTitleLabel.Parent = adminFrame
+
+    -- Add UICorner to Admin Panel Title Label for rounded corners
+    local adminTitleCorner = Instance.new("UICorner")
+    adminTitleCorner.CornerRadius = UDim.new(0, 8)
+    adminTitleCorner.Parent = adminTitleLabel
+
+    -- Function to create command buttons
+    local function createCommandButton(name, position, commandFunction)
+        local button = Instance.new("TextButton")
+        button.Size = UDim2.new(0.8, 0, 0.1, 0)
+        button.Position = position
+        button.Text = name
+        button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+        button.TextColor3 = Color3.fromRGB(255, 255, 255)
+        button.Font = Enum.Font.GothamBold
+        button.TextSize = 24
+        button.BorderSizePixel = 0
+        button.Parent = adminFrame
+
+        -- Add UICorner to Command Button for rounded corners
+        local buttonCorner = Instance.new("UICorner")
+        buttonCorner.CornerRadius = UDim.new(0, 8)
+        buttonCorner.Parent = button
+
+        button.MouseButton1Click:Connect(commandFunction)
+    end
+
+    -- Commands
+    local function giveInfiniteHealth()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.MaxHealth = math.huge
+                humanoid.Health = math.huge
+            end
+        end
+    end
+
+    -- Create Command Buttons
+    createCommandButton(".op - Infinite Health", UDim2.new(0.1, 0, 0.2, 0), giveInfiniteHealth)
+    -- Add more command buttons as needed
+
+    -- Activate Admin Button Click Event
+    activateButton.MouseButton1Click:Connect(function()
+        adminFrame.Visible = true
+        mainFrame.Visible = false
+    end)
+
+    -- Make the Frames draggable
+    local function makeDraggable(frame)
+        local dragging
+        local dragInput
+        local dragStart
+        local startPos
+
+        local function update(input)
+            local delta = input.Position - dragStart
+            frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+
+        frame.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                dragging = true
+                dragStart = input.Position
+                startPos = frame.Position
+
+                input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.End then
+                        dragging = false
+                    end
+                end)
+            end
+        end)
+
+        frame.InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                dragInput = input
+            end
+        end)
+
+        game:GetService("UserInputService").InputChanged:Connect(function(input)
+            if dragging and input == dragInput then
+                update(input)
+            end
+        end)
+    end
+
+    makeDraggable(mainFrame)
+    makeDraggable(adminFrame)
+else
+    print("This script only works in the specified game by 1mDito.")
+end
